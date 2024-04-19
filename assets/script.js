@@ -24,16 +24,19 @@ let Left = document.querySelector('.arrow_left');
 let Right = document.querySelector('.arrow_right');
 
 let i = 0;
-//Ajout des écouteurs d'événements pour gauche
+//Ajout des écouteurs d'événements pour flèche gauche
 Left.addEventListener('click', function() {
     if (i <= 0) i = slides.length;
     i--;
+	console.log("Clic sur flèche gauche");
     return setSlide();
+	
 });
-//Ajout des écouteurs d'événements pour droit
+//Ajout des écouteurs d'événements pour flèche droite
 Right.addEventListener('click', function() {
     if (i >= slides.length - 1) i = -1;
     i++;
+	console.log("Clic sur flèche droite.");
     return setSlide();
 });
 //instaler le slider utilisant de tableau
