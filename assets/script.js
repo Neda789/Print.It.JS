@@ -16,7 +16,7 @@ const slides = [
         "tagLine": "Autocollants <span>avec découpe laser sur mesure</span>"
     }
 ];
-
+//méthodes de sélection de l'API DOM
 let banner_img = document.querySelector('.banner-img');
 let taglines = document.getElementById('taglines');
 let dots = document.querySelectorAll('.dot');
