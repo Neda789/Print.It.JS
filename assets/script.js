@@ -50,14 +50,21 @@ function updateDots() {
 // Ajout des écouteurs d'événements pour flèche gauche
 Left.addEventListener('click', function() {
     Slide = (Slide === 0) ? slides.length - 1 : Slide - 1;
+    console.log("Vous avez cliqué sur la flèche gauche");
+
     setSlide();
 });
 
 // Ajout des écouteurs d'événements pour flèche droite
 Right.addEventListener('click', function() {
     Slide = (Slide === slides.length - 1) ? 0 : Slide + 1;
+    console.log("Vous avez cliqué sur la flèche droite");
+
     setSlide();
 });
+
+
+
 
 // Fonction pour changer de diapositive
 function setSlide() {
