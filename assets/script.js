@@ -16,52 +16,59 @@ const slides = [
         "tagLine": "Autocollants <span>avec découpe laser sur mesure</span>"
     }
 ];
-//méthodes de sélection de l'API DOM
+
 let banner_img = document.querySelector('.banner-img');
 let taglines = document.getElementById('taglines');
-let dots = document.querySelectorAll('.dot');
+let dotsContainer = document.querySelector('.dots');
+
 let Left = document.querySelector('.arrow_left');
 let Right = document.querySelector('.arrow_right');
 
-let i = 0;
-//Ajout des écouteurs d'événements pour flèche gauche
+let Slide = 0;
+
+// Fonction pour mettre à jour les dots
+function updateDots() {
+    // Effacer les dots existants
+    dotsContainer.innerHTML = '';
+
+    // Créer et ajouter les dots
+    for (let i = 0; i < slides.length; i++) {
+        let dot = document.createElement('span');
+        dot.classList.add('dot');
+        if (i === Slide) {
+            dot.classList.add('dot_selected');
+        }
+        // Ajouter un gestionnaire d'événements pour le clic sur le dot
+        dot.addEventListener('click', function() {
+            Slide = i;
+            setSlide();
+        });
+        dotsContainer.appendChild(dot);
+    }
+}
+
+// Ajout des écouteurs d'événements pour flèche gauche
 Left.addEventListener('click', function() {
-    if (i <= 0) i = slides.length;
-    i--;
-	console.log("Clic sur flèche gauche");
-    return setSlide();
-	
-});
-//Ajout des écouteurs d'événements pour flèche droite
-Right.addEventListener('click', function() {
-    if (i >= slides.length - 1) i = -1;
-    i++;
-	console.log("Clic sur flèche droite.");
-    return setSlide();
-});
-//instaler le slider utilisant de tableau
-function setSlide() {
-    banner_img.setAttribute('src', './assets/images/slideshow/' + slides[i].image);
-    taglines.innerHTML = slides[i].tagLine;
-
-    // Déselectionner tous les points
-    dots.forEach(dot => dot.classList.remove('dot_selected'));
-    // Sélectionner le point correspondant
-    dots[i].classList.add('dot_selected');
-}
-
-function changeSlide(index) {
-    i = index;
+    Slide = (Slide === 0) ? slides.length - 1 : Slide - 1;
     setSlide();
-}
-
-// Ajout des écouteurs d'événements aux points
-dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-        changeSlide(index);
-    });
 });
+
+// Ajout des écouteurs d'événements pour flèche droite
+Right.addEventListener('click', function() {
+    Slide = (Slide === slides.length - 1) ? 0 : Slide + 1;
+    setSlide();
+});
+
+// Fonction pour changer de diapositive
+function setSlide() {
+    banner_img.setAttribute('src', './assets/images/slideshow/' + slides[Slide].image);
+    taglines.innerHTML = slides[Slide].tagLine;
+    updateDots(); // Mettre à jour les dots
+}
 
 // Initialiser le slider
 setSlide();
+
+
+
 
